@@ -12,7 +12,7 @@ export default function ClientDetailPage({ params }){
 
     return (
         <div>
-            <h1>ClientDetailId : {queryId} </h1>
+            <h1>ClientDetailId : {queryId ? queryId : id} </h1>
         </div>
     )
 }
