@@ -1,18 +1,28 @@
-'use client'
+'use client';
 
+import { Fragment } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { getEventById } from '../../../dummy-data';
+import EventSummary from '../../../components/event-detail/event-summary';
+import EventLogistics from '../../../components/event-detail/event-logistics';
+import EventContent from '../../../components/event-detail/event-content';
 
-function eventDetailPage({ params }){
+function EventDetailPage({ params }) {
+    const event = getEventById(params.id);
 
+    if (!event) {
+        return <p>No Event Found!</p>;
+    }
 
-    return(
-        <div>
-            <h1>Event Detail Page</h1>
-            <ul>
-                <li>Detail Id : {params.id}</li>
-            </ul>
-        </div>
-    )
+    return (
+        <Fragment>
+            <EventSummary title={event.title} />
+            <EventLogistics date={event.date} address={event.location} image={event.image} imageAlt={event.title} />
+            <EventContent>
+                <p>{event.description}</p>
+            </EventContent>
+        </Fragment>
+    );
 }
 
-export default eventDetailPage;
+export default EventDetailPage;
