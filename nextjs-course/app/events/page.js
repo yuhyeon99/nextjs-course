@@ -1,26 +1,26 @@
-import Link from 'next/link';
+"use client";
 
-function EventPage(){
+import { Fragment } from "react";
+import { useRouter } from "next/navigation";
+import { getAllEvents } from "../../dummy-data";
+import EventList from "../../components/events/event-list";
+import EventsSearch from "../../components/events/events-search";
 
-    const eventList = [
-        {id : 1, eventName: "첫번째 이벤트"},
-        {id : 2, eventName: "두번째 이벤트"},
+function EventPage() {
+  const router = useRouter();
+  const events = getAllEvents();
 
-    ]
-    return(
-        <div>
-            <h1>Event Page</h1>
-            <ul>
-                {eventList.map(event => <li key={event.id}>
-                    <Link href={`/events/${event.id}`}>{event.eventName}</Link>
-                </li>)}
-            </ul>
-            <ul>
-                <li><Link href="/events/2023/09/20">2023년 09월 20일 이벤트들</Link></li>
-            </ul>
-        </div>
-    )
+  function findEventsHandler(year, month) {
+    const fullPath = `/events/${year}/${month}`;
 
+    router.push(fullPath);
+  }
+  return (
+    <Fragment>
+      <EventsSearch onSearch={findEventsHandler} />
+      <EventList items={events} />
+    </Fragment>
+  );
 }
 
 export default EventPage;
