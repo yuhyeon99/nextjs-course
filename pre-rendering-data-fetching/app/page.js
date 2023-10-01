@@ -10,8 +10,10 @@ async function getDummyData() {
 }
 
 async function getStaticSideProps() {
+  console.log("(Re-)Generating...");
   const usersResponse = await fetch(
-    "https://jsonplaceholder.typicode.com/users"
+    "https://jsonplaceholder.typicode.com/users",
+    { next: { revalidate: 10 } }
   );
 
   return usersResponse.json();
