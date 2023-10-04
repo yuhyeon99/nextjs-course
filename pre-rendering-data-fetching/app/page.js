@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 
-async function getDummyData() {
+export async function getDummyData() {
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
@@ -10,7 +10,7 @@ async function getDummyData() {
 }
 
 async function getStaticSideProps() {
-  console.log("(Re-)Generating...");
+  // console.log("(Re-)Generating...");
   const usersResponse = await fetch(
     "https://jsonplaceholder.typicode.com/users",
     { next: { revalidate: 10 } }
